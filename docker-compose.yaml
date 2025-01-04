@@ -1,0 +1,32 @@
+services:
+  control_node:
+    build:
+      context: ./control-node
+    image: ansible-control-node
+    container_name: control-node
+    volumes:
+      - shared-volume:/shared-files
+      - ./control-node/ansible:/ansible
+
+  host0:
+    build:
+      context: ./host
+    image: ansible-host
+    container_name: host0
+    volumes:
+      - shared-volume:/shared-files
+    depends_on:
+      - control_node
+  
+  host1:
+    build:
+      context: ./host
+    image: ansible-host
+    container_name: host1
+    volumes:
+      - shared-volume:/shared-files
+    depends_on:
+      - control_node
+
+volumes:
+  shared-volume:
