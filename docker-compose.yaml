@@ -7,6 +7,8 @@ services:
     volumes:
       - shared-volume:/shared-files
       - ./control-node/ansible:/ansible
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False
 
   host0:
     build:
