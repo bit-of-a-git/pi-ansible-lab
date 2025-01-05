@@ -18,7 +18,7 @@ services:
       - shared-volume:/shared-files
     depends_on:
       - control-node
-    scale: 2
+    scale: 1
 
 volumes:
   shared-volume:

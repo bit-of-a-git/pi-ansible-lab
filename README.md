@@ -21,7 +21,21 @@ This repository is inspired by [ansible-lab-docker](https://github.com/LMtx/ansi
     cd pi-ansible-lab
     ```
 
-2. Run the following commands to start the lab and exec into the control node.
+2. (Optional) The lab uses one host container by default. If you would like to add more replicas of the host container, you can modify the `scale` line in docker-compose.yaml:
+    ```yaml
+    services:
+      host:
+        ...
+        scale: 3  # Change this number to the desired number of replicas
+    ```
+
+    Then, run the following command to update the inventory:
+    ```bash
+    docker container ls --format "{{.Names}}" | grep host | sort > ./control-node/ansible/inventory
+    ```
+
+3. Run the following commands to start the lab and exec into the control node.
+
     ```bash
     docker compose up -d
     docker compose exec -it control-node bash
