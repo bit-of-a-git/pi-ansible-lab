@@ -1,34 +1,27 @@
+name: pi-ansible
 services:
-  control_node:
+  control-node:
     build:
       context: ./control-node
     image: ansible-control-node
-    container_name: control-node
     volumes:
       - shared-volume:/shared-files
       - ./control-node/ansible:/ansible
     environment:
       - ANSIBLE_HOST_KEY_CHECKING=False
 
-  host0:
+  host:
     build:
       context: ./host
     image: ansible-host
-    container_name: host0
     volumes:
       - shared-volume:/shared-files
     depends_on:
-      - control_node
-  
-  host1:
-    build:
-      context: ./host
-    image: ansible-host
-    container_name: host1
-    volumes:
-      - shared-volume:/shared-files
-    depends_on:
-      - control_node
+      - control-node
+    scale: 2
 
 volumes:
   shared-volume:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

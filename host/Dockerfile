@@ -1,10 +1,8 @@
-FROM arm64v8/debian:stable-slim
+FROM arm64v8/python:3.14-rc-alpine
 
 COPY run.sh .
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends --no-install-suggests openssh-server python3 && \
-    rm -rf /var/lib/apt/lists/* && \
+RUN apk add --no-cache openssh-server && \
     mkdir -p -m 755 /var/run/sshd && \
     chmod +x run.sh
 
