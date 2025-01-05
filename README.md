@@ -45,6 +45,7 @@ This repository is inspired by [ansible-lab-docker](https://github.com/LMtx/ansi
 
 - Playbooks may be placed into the control-node/ansible/ directory of this repository.
 - When the containers come up with docker compose, the files should be placed into the container.
+- For space, the host containers use an Alpine image. **Please note**: Alpine uses the APK package manager, so playbooks should take this into account.
 
 ## Acknowledgements
 
